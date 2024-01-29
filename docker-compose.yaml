@@ -34,7 +34,7 @@ services:
   postgres:
     container_name: postgres_container
     image: postgres
-    restart: always
+    restart: alwaysrabbitmq:3.13-rc-alpine
     environment:
       - POSTGRES_USER=jobber
       - POSTGRES_DB=jobber_reviews
@@ -43,4 +43,15 @@ services:
       - '5432:5432'
     volumes:
       - ./docker-volumes/postgres:/var/lib/postgresql
-
+  rabbitmq:
+    container_name: rabbitmq_container
+    image: rabbitmq:3.13-rc-alpine
+    restart: always
+    ports:
+      # AMPQ protocol port
+      - '5672:5672'
+      # Management UI
+      - '15672:15672'
+  elasticsearch:
+    container_name: elasticsearch_container
+    
